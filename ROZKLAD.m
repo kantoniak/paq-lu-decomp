@@ -95,12 +95,16 @@ function [R, p, q] = ROZKLAD(A, s)
 
 
     otherwise
-      error(sprintf('Opcja s=%d nie jest wspierana.', s))
+      error(sprintf('Opcja s=%d nie jest wspierana.', s));
   end
 end
 
 function [R] = wyeliminuj_kolumne(R, x)
 % wyeliminuj_kolumne wykonuje odejmowania, które eliminują x-tą kolumnę podmacierzy.
+
+  if (R(x,x) == 0)
+    error('Macierz A jest osobliwa');
+  end
 
   n = size(R, 1);
   for y=x+1:n
