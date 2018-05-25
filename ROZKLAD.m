@@ -30,13 +30,15 @@ function [R, p, q] = ROZKLAD(A, s)
     case 1 % Z elementem głównym w kolumnie
       
       for x=1:n-1
+        % Wyszukiwanie el. głównego w kolumnie
         maks = x;
         for i=x+1:n
-          if (abs(R(i,x)) > abs(R(x,x)))
+          if (abs(R(i,x)) > abs(R(maks,x)))
             maks = i;
           end
         end
 
+        % Zamiana wierszy
         if (maks > x)
           tmp = R(x,:);
           R(x,:) = R(maks,:);
