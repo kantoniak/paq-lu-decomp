@@ -54,7 +54,44 @@ function [R, p, q] = ROZKLAD(A, s)
 
 
     case 2 % Z elementem głównym w macierzy
-      disp('Opcja 2')
+      
+      for x=1:n-1
+        % Wyszukiwanie el. głównego w podmacierzy
+        maks = [x, x];
+        maks_val = R(maks(1), maks(2));
+        for i=x:n
+          for j=x:n
+            if (abs(R(i,j)) > abs(maks_val))
+              maks = [i, j];
+              maks_val = R(maks(1), maks(2));
+            end
+          end
+        end
+
+        % Zamiana wierszy
+        if (maks(1) > x)
+          tmp = R(x,:);
+          R(x,:) = R(maks(1),:);
+          R(maks(1),:) = tmp;
+
+          tmp = p(x);
+          p(x) = p(maks(1));
+          p(maks(1)) = tmp;
+        end
+
+        % Zamiana kolumn
+        if (maks(2) > x)
+          tmp = R(:,x);
+          R(:,x) = R(:,maks(2));
+          R(:,maks(2)) = tmp;
+
+          tmp = q(x);
+          q(x) = q(maks(2));
+          q(maks(2)) = tmp;
+        end
+
+        R = wyeliminuj_kolumne(R, x);
+      end
 
 
     otherwise

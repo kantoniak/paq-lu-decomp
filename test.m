@@ -5,6 +5,12 @@ A = [
 8, 2, 9, 7
 ];
 
-[R, p, q] = ROZKLAD(A, 1);
-[L, U, P] = lu(A)
-R
+[R, p, q] = ROZKLAD(A, 2);
+
+P = eye(n); P = P(p,:);
+Q = eye(n); Q = Q(q,:);
+L = tril(R, -1) + eye(4);
+U = triu(R);
+
+P*A*Q'
+L*U
