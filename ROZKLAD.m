@@ -40,13 +40,7 @@ function [R, p, q] = ROZKLAD(A, s)
 
         % Zamiana wierszy
         if (maks > x)
-          tmp = R(x,:);
-          R(x,:) = R(maks,:);
-          R(maks,:) = tmp;
-
-          tmp = p(x);
-          p(x) = p(maks);
-          p(maks) = tmp;
+          [R, p] = zamien_wiersze(R, p, maks(1), x);
         end
 
         R = wyeliminuj_kolumne(R, x);
@@ -70,24 +64,12 @@ function [R, p, q] = ROZKLAD(A, s)
 
         % Zamiana wierszy
         if (maks(1) > x)
-          tmp = R(x,:);
-          R(x,:) = R(maks(1),:);
-          R(maks(1),:) = tmp;
-
-          tmp = p(x);
-          p(x) = p(maks(1));
-          p(maks(1)) = tmp;
+          [R, p] = zamien_wiersze(R, p, maks(1), x);
         end
 
         % Zamiana kolumn
         if (maks(2) > x)
-          tmp = R(:,x);
-          R(:,x) = R(:,maks(2));
-          R(:,maks(2)) = tmp;
-
-          tmp = q(x);
-          q(x) = q(maks(2));
-          q(maks(2)) = tmp;
+          [R, q] = zamien_kolumny(R, q, maks(2), x);
         end
 
         R = wyeliminuj_kolumne(R, x);
@@ -111,5 +93,31 @@ function [R] = wyeliminuj_kolumne(R, x)
     R(y,x) = R(y,x)/R(x,x);
     R(y,x+1:n) = R(y,x+1:n) - R(y,x)*R(x,x+1:n);
   end
+
+end
+
+function [R, p] = zamien_wiersze(R, p, i, j)
+% zamien_wiersze zamienia wiersze w macierzy i w wektorze permutacji.
+
+  tmp = R(i, :);
+  R(i, :) = R(j, :);
+  R(j, :) = tmp;
+
+  tmp = p(i);
+  p(i) = p(j);
+  p(j) = tmp;
+
+end
+
+function [R, q] = zamien_kolumny(R, q, i, j)
+% zamien_kolumny zamienia kolumny w macierzy i w wektorze permutacji.
+
+  tmp = R(:, i);
+  R(:, i) = R(:, j);
+  R(:, j) = tmp;
+
+  tmp = q(i);
+  q(i) = q(j);
+  q(j) = tmp;
 
 end
