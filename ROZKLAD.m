@@ -13,6 +13,10 @@ function [R, p, q] = ROZKLAD(A, s)
 %  R - macierz zawierająca czynniki L i U rozkładu
 %  p - wektor permutacji wierszy
 %  q - wektor permutacji kolumn
+%
+% W przypadku rozkładu bez wyboru elementu głównego, jeśli
+% macierz A w którymś kroku trafi na zero na przekątnej, to
+% zostanie zwrócony błąd 'ROZKLAD:zeroOnDiagonal'.
 
   n = size(A, 1);
   R = A;
@@ -85,7 +89,7 @@ function [R] = wyeliminuj_kolumne(R, x)
 % wyeliminuj_kolumne wykonuje odejmowania, które eliminują x-tą kolumnę podmacierzy.
 
   if (R(x,x) == 0)
-    error('Macierz A jest osobliwa');
+    error('ROZKLAD:zeroOnDiagonal', 'Element zerowy na przekątnej');
   end
 
   n = size(R, 1);
