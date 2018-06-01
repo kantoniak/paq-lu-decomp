@@ -32,13 +32,13 @@ end
 
 hold on
   grid on
-  %plot(N, averages(1:size(N, 2), 2));
-  plot(N, averages(1:size(N, 2), 3));
-  plot(N, averages(1:size(N, 2), 4));
-  plot(N, averages(1:size(N, 2), 5));
+  semilogy(N, averages(1:size(N, 2), 2));
+  semilogy(N, averages(1:size(N, 2), 3));
+  semilogy(N, averages(1:size(N, 2), 4));
+  semilogy(N, averages(1:size(N, 2), 5));
   xlabel('Rozmiar macierzy');
   ylabel('Czas rozkładu [sekundy/n]');
-  title('Porównanie średnich czasów rozkładu macierzy (sekundy/n)');
-  legend('Gauss bez el. głównego', 'Z el. głównym w kolumnie', 'Z el. głównym w macierzy');
-  %print -depscairo '-S450, 300' 'test_time_random_matrices_vs_matlab.eps'
+  %title('Porównanie średnich czasów rozkładu macierzy (sekundy/n)');
+  legend('Matlab', 'Gauss bez el. głównego', 'Z el. głównym w kolumnie', 'Z el. głównym w macierzy');
+  print -depscairo '-S450, 300' 'test_time_random_matrices_vs_matlab.eps'
 hold off
